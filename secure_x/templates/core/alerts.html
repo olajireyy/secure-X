@@ -1,0 +1,556 @@
+{% extends 'core/base.html' %}
+{% block content %}{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSense Hub - Alert</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Alerts CSS -->
+    <link rel="stylesheet" href="{%static 'css/alerts.css' %}">
+</head>
+<body>
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="header-content">
+            <a href="{% url 'dashboard' %}" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div class="logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h1>Cyber<span>Sense</span> HUB</h1>
+            </div>
+            <div class="header-right">
+                <button class="clear-all-btn" id="clear-all-btn">
+                    <i class="fa-solid fa-trash"></i> Clear All
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="alerts-container">
+        <!-- Page Title -->
+        <div class="page-title">
+            <h2>Security Alerts</h2>
+            <p>Stay updated on detected threats</p>
+        </div>
+
+        <!-- Alert Summary Cards -->
+        <div class="summary-section">
+            <div class="summary-card">
+                <div class="summary-icon red">
+                    <i class="fa-solid fa-exclamation-circle"></i>
+                </div>
+                <div class="summary-details">
+                    <div class="summary-number" id="active-count">3</div>
+                    <div class="summary-label">Active Alerts</div>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon green">
+                    <i class="fa-solid fa-check-circle"></i>
+                </div>
+                <div class="summary-details">
+                    <div class="summary-number" id="resolved-count">15</div>
+                    <div class="summary-label">Resolved</div>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon blue">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="summary-details">
+                    <div class="summary-number" id="total-count">18</div>
+                    <div class="summary-label">Total Alerts</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">
+                    All <span class="tab-count">18</span>
+                </button>
+                <button class="filter-tab" data-filter="active">
+                    Active <span class="tab-count">3</span>
+                </button>
+                <button class="filter-tab" data-filter="resolved">
+                    Resolved <span class="tab-count">15</span>
+                </button>
+            </div>
+
+            <div class="sort-dropdown">
+                <select id="sort-select">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="priority">High Priority</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Alerts List -->
+        <div class="alerts-list">
+            <!-- Active Alerts -->
+            <div class="alert-card active" data-status="active" data-priority="high">
+                <div class="alert-header">
+                    <div class="alert-icon-wrapper">
+                        <div class="alert-icon high">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <span class="unread-dot"></span>
+                    </div>
+                    <div class="alert-main">
+                        <div class="alert-top">
+                            <h3>Phishing Email Detected</h3>
+                            <div class="alert-badges">
+                                <span class="badge badge-active">Active</span>
+                                <span class="badge badge-high">High</span>
+                            </div>
+                        </div>
+                        <p class="alert-description">Suspicious email from fake-nelfund@gmail.com attempting to collect BVN information</p>
+                        <div class="alert-meta">
+                            <span class="alert-time"><i class="fa-solid fa-clock"></i> 2 hours ago</span>
+                            <span class="alert-type"><i class="fa-solid fa-tag"></i> Phishing</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn-view">View Details</button>
+                    <button class="btn-resolve">Mark as Resolved</button>
+                </div>
+            </div>
+
+            <div class="alert-card active" data-status="active" data-priority="high">
+                <div class="alert-header">
+                    <div class="alert-icon-wrapper">
+                        <div class="alert-icon high">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                        <span class="unread-dot"></span>
+                    </div>
+                    <div class="alert-main">
+                        <div class="alert-top">
+                            <h3>Malicious Link Blocked</h3>
+                            <div class="alert-badges">
+                                <span class="badge badge-active">Active</span>
+                                <span class="badge badge-high">High</span>
+                            </div>
+                        </div>
+                        <p class="alert-description">Blocked access to phishing-gtbank.xyz - Domain impersonating GTBank</p>
+                        <div class="alert-meta">
+                            <span class="alert-time"><i class="fa-solid fa-clock"></i> 5 hours ago</span>
+                            <span class="alert-type"><i class="fa-solid fa-tag"></i> Malicious URL</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn-view">View Details</button>
+                    <button class="btn-resolve">Mark as Resolved</button>
+                </div>
+            </div>
+
+            <div class="alert-card active" data-status="active" data-priority="medium">
+                <div class="alert-header">
+                    <div class="alert-icon-wrapper">
+                        <div class="alert-icon medium">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <span class="unread-dot"></span>
+                    </div>
+                    <div class="alert-main">
+                        <div class="alert-top">
+                            <h3>Suspicious Investment Offer</h3>
+                            <div class="alert-badges">
+                                <span class="badge badge-active">Active</span>
+                                <span class="badge badge-medium">Medium</span>
+                            </div>
+                        </div>
+                        <p class="alert-description">Detected forex trading scam message promising guaranteed 500% returns</p>
+                        <div class="alert-meta">
+                            <span class="alert-time"><i class="fa-solid fa-clock"></i> 1 day ago</span>
+                            <span class="alert-type"><i class="fa-solid fa-tag"></i> Scam</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn-view">View Details</button>
+                    <button class="btn-resolve">Mark as Resolved</button>
+                </div>
+            </div>
+
+            <!-- Resolved Alerts -->
+            <div class="alert-card resolved" data-status="resolved" data-priority="high">
+                <div class="alert-header">
+                    <div class="alert-icon-wrapper">
+                        <div class="alert-icon resolved">
+                            <i class="fa-solid fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="alert-main">
+                        <div class="alert-top">
+                            <h3>Fake Bank Alert Identified</h3>
+                            <div class="alert-badges">
+                                <span class="badge badge-resolved">Resolved</span>
+                                <span class="badge badge-high">High</span>
+                            </div>
+                        </div>
+                        <p class="alert-description">Payment verification failed - Fake transfer alert detected</p>
+                        <div class="alert-meta">
+                            <span class="alert-time"><i class="fa-solid fa-clock"></i> 2 days ago</span>
+                            <span class="alert-type"><i class="fa-solid fa-tag"></i> Fake Transfer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn-view">View Details</button>
+                </div>
+            </div>
+
+            <div class="alert-card resolved" data-status="resolved" data-priority="medium">
+                <div class="alert-header">
+                    <div class="alert-icon-wrapper">
+                        <div class="alert-icon resolved">
+                            <i class="fa-solid fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="alert-main">
+                        <div class="alert-top">
+                            <h3>Job Offer Scam Detected</h3>
+                            <div class="alert-badges">
+                                <span class="badge badge-resolved">Resolved</span>
+                                <span class="badge badge-medium">Medium</span>
+                            </div>
+                        </div>
+                        <p class="alert-description">Fake job offer requesting upfront registration fee payment</p>
+                        <div class="alert-meta">
+                            <span class="alert-time"><i class="fa-solid fa-clock"></i> 3 days ago</span>
+                            <span class="alert-type"><i class="fa-solid fa-tag"></i> Job Scam</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn-view">View Details</button>
+                </div>
+            </div>
+
+            <div class="alert-card resolved" data-status="resolved" data-priority="low">
+                <div class="alert-header">
+                    <div class="alert-icon-wrapper">
+                        <div class="alert-icon resolved">
+                            <i class="fa-solid fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="alert-main">
+                        <div class="alert-top">
+                            <h3>Suspicious Website Blocked</h3>
+                            <div class="alert-badges">
+                                <span class="badge badge-resolved">Resolved</span>
+                                <span class="badge badge-low">Low</span>
+                            </div>
+                        </div>
+                        <p class="alert-description">Access to potentially harmful website was blocked by web protection</p>
+                        <div class="alert-meta">
+                            <span class="alert-time"><i class="fa-solid fa-clock"></i> 5 days ago</span>
+                            <span class="alert-type"><i class="fa-solid fa-tag"></i> Web Protection</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn-view">View Details</button>
+                </div>
+            </div>
+
+            <div class="alert-card resolved" data-status="resolved" data-priority="high">
+                <div class="alert-header">
+                    <div class="alert-icon-wrapper">
+                        <div class="alert-icon resolved">
+                            <i class="fa-solid fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="alert-main">
+                        <div class="alert-top">
+                            <h3>Scholarship Scam Alert</h3>
+                            <div class="alert-badges">
+                                <span class="badge badge-resolved">Resolved</span>
+                                <span class="badge badge-high">High</span>
+                            </div>
+                        </div>
+                        <p class="alert-description">Fake scholarship application requesting processing fee</p>
+                        <div class="alert-meta">
+                            <span class="alert-time"><i class="fa-solid fa-clock"></i> 1 week ago</span>
+                            <span class="alert-type"><i class="fa-solid fa-tag"></i> Scholarship Scam</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn-view">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State (hidden by default) -->
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <i class="fa-solid fa-bell-slash"></i>
+            <h3>No Alerts</h3>
+            <p>You don't have any security alerts at the moment</p>
+            <button class="btn-primary" onclick="location.href='../Core/dashboard.html'">
+                Go to Dashboard
+            </button>
+        </div>
+
+        <!-- Bottom Spacer -->
+        <div class="bottom-spacer"></div>
+    </main>
+
+    {% endblock %}
+
+    <!-- JavaScript -->
+    <script>
+        // Filter Tabs
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const alertCards = document.querySelectorAll('.alert-card');
+        const emptyState = document.getElementById('empty-state');
+        const alertsList = document.querySelector('.alerts-list');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                filterTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active to clicked tab
+                tab.classList.add('active');
+                
+                // Get filter value
+                const filter = tab.getAttribute('data-filter');
+                
+                // Filter alerts
+                filterAlerts(filter);
+            });
+        });
+
+        function filterAlerts(filter) {
+            let visibleCount = 0;
+            
+            alertCards.forEach(card => {
+                const status = card.getAttribute('data-status');
+                
+                if (filter === 'all') {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else if (filter === status) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Show empty state if no alerts
+            if (visibleCount === 0) {
+                alertsList.style.display = 'none';
+                emptyState.style.display = 'block';
+            } else {
+                alertsList.style.display = 'flex';
+                emptyState.style.display = 'none';
+            }
+        }
+
+        // Sort Dropdown
+        const sortSelect = document.getElementById('sort-select');
+
+        sortSelect.addEventListener('change', () => {
+            const sortValue = sortSelect.value;
+            sortAlerts(sortValue);
+        });
+
+        function sortAlerts(sortBy) {
+            const alertsArray = Array.from(alertCards);
+            
+            alertsArray.sort((a, b) => {
+                if (sortBy === 'newest') {
+                    // Sort by newest (already in order, but for demo)
+                    return 0;
+                } else if (sortBy === 'oldest') {
+                    // Reverse order
+                    return 0;
+                } else if (sortBy === 'priority') {
+                    // Sort by priority
+                    const priorityOrder = { 'high': 0, 'medium': 1, 'low': 2 };
+                    const aPriority = a.getAttribute('data-priority');
+                    const bPriority = b.getAttribute('data-priority');
+                    return priorityOrder[aPriority] - priorityOrder[bPriority];
+                }
+            });
+            
+            // Re-append in sorted order
+            const parent = alertsList;
+            alertsArray.forEach(card => parent.appendChild(card));
+        }
+
+        // Mark as Resolved
+        const resolveButtons = document.querySelectorAll('.btn-resolve');
+
+        resolveButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const alertCard = this.closest('.alert-card');
+                const alertTitle = alertCard.querySelector('h3').textContent;
+                
+                if (confirm(`Mark "${alertTitle}" as resolved?`)) {
+                    // Update card status
+                    alertCard.classList.remove('active');
+                    alertCard.classList.add('resolved');
+                    alertCard.setAttribute('data-status', 'resolved');
+                    
+                    // Update icon
+                    const icon = alertCard.querySelector('.alert-icon');
+                    icon.className = 'alert-icon resolved';
+                    icon.innerHTML = '<i class="fa-solid fa-check-circle"></i>';
+                    
+                    // Update badge
+                    const statusBadge = alertCard.querySelector('.badge-active');
+                    if (statusBadge) {
+                        statusBadge.className = 'badge badge-resolved';
+                        statusBadge.textContent = 'Resolved';
+                    }
+                    
+                    // Remove unread dot
+                    const unreadDot = alertCard.querySelector('.unread-dot');
+                    if (unreadDot) {
+                        unreadDot.remove();
+                    }
+                    
+                    // Remove resolve button
+                    this.remove();
+                    
+                    // Update counts
+                    updateCounts();
+                    
+                    // Show success message
+                    showNotification('Alert marked as resolved!');
+                }
+            });
+        });
+
+        // View Details
+        const viewButtons = document.querySelectorAll('.btn-view');
+
+        viewButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const alertCard = this.closest('.alert-card');
+                const alertTitle = alertCard.querySelector('h3').textContent;
+                
+                // TODO: Navigate to alert details page or show modal
+                alert(`Viewing details for: ${alertTitle}`);
+                // window.location.href = 'alert-details.html?id=123';
+            });
+        });
+
+        // Clear All Button
+        const clearAllBtn = document.getElementById('clear-all-btn');
+
+        clearAllBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear all resolved alerts? This action cannot be undone.')) {
+                const resolvedAlerts = document.querySelectorAll('.alert-card.resolved');
+                
+                resolvedAlerts.forEach(alert => {
+                    alert.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        alert.remove();
+                        updateCounts();
+                    }, 300);
+                });
+                
+                showNotification('Resolved alerts cleared!');
+                
+                // Check if any alerts remain
+                setTimeout(() => {
+                    if (document.querySelectorAll('.alert-card').length === 0) {
+                        alertsList.style.display = 'none';
+                        emptyState.style.display = 'block';
+                    }
+                }, 350);
+            }
+        });
+
+        // Update Counts
+        function updateCounts() {
+            const activeCount = document.querySelectorAll('.alert-card.active').length;
+            const resolvedCount = document.querySelectorAll('.alert-card.resolved').length;
+            const totalCount = activeCount + resolvedCount;
+            
+            document.getElementById('active-count').textContent = activeCount;
+            document.getElementById('resolved-count').textContent = resolvedCount;
+            document.getElementById('total-count').textContent = totalCount;
+            
+            // Update tab counts
+            document.querySelector('[data-filter="all"] .tab-count').textContent = totalCount;
+            document.querySelector('[data-filter="active"] .tab-count').textContent = activeCount;
+            document.querySelector('[data-filter="resolved"] .tab-count').textContent = resolvedCount;
+        }
+
+        // Show Notification
+        function showNotification(message) {
+            // Simple alert for now (can be replaced with toast notification)
+            console.log(message);
+            
+            // Optional: Create a toast notification
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: #00D084;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

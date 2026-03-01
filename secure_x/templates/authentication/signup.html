@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSense Hub - Sign Up</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Your CSS -->
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+
+<body>
+    <div class="auth-container">
+        <header>Cyber<span>Sense</span> <br>HUB</header>
+
+        <form class="auth-form" id="signup-form" method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+
+            <h2>Create Account</h2>
+            <p class="subtitle">Join us to protect yourself online</p>
+
+            {% if messages %}
+            {% for message in messages %}
+            <p style="color: #ff4444; text-align: center; font-size: 0.9rem;">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+
+            <input type="text" placeholder="Full Name" class="input-field" name="full_name" required>
+            <input type="email" placeholder="Email" class="input-field" name="email" required>
+            <input type="tel" placeholder="Phone Number" class="input-field" name="phone" required>
+
+            <div class="password-wrapper">
+                <input type="password" placeholder="Password" class="input-field" id="password" name="password"
+                    required>
+                <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('password')"></i>
+            </div>
+
+            <div class="password-wrapper">
+                <input type="password" placeholder="Confirm Password" class="input-field" id="confirm-password"
+                    name="confirm_password" required>
+                <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('confirm-password')"></i>
+            </div>
+
+            <!-- User Type Selection -->
+            <select class="input-field" name="user_type" required>
+                <option value="" disabled selected>Select User Type</option>
+                <option value="student">Student</option>
+                <option value="business">Business Owner</option>
+                <option value="institution">Institution</option>
+            </select>
+
+            <!-- Terms and Conditions -->
+            <label class="checkbox-container">
+                <input type="checkbox" required>
+                <span>I agree to the <a href="#">Terms & Conditions</a></span>
+            </label>
+
+            <button type="submit" class="btn-primary">SIGN UP</button>
+
+            <p class="auth-link">Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+        </form>
+
+        <p class="social-login-text">Or sign up with</p>
+        <div class="social-login">
+            <a href="#" class="social-btn"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-google"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-microsoft"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-apple"></i></a>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(id) {
+            const password = document.getElementById(id);
+            const icon = password.nextElementSibling;
+
+            if (password.type === 'password') {
+                password.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                password.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
+</body>
+
+</html>

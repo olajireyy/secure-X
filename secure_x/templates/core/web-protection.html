@@ -1,0 +1,361 @@
+{% extends 'core/base.html' %}
+{% block content %}{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSense Hub - Web Protection</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Web Protection CSS -->
+    <link rel="stylesheet" href="{% static 'css/web-protection.css' %}">
+</head>
+<body>
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="header-content">
+            <a href="{% url 'dashboard' %}" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div class="logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h1>Cyber<span>Sense</span> HUB</h1>
+            </div>
+            <div class="header-spacer"></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="web-container">
+        <!-- Page Title -->
+        <div class="page-title">
+            <h2>Web Protection</h2>
+            <p>Browse safely with real-time threat detection</p>
+        </div>
+
+        <!-- Protection Status Card -->
+        <div class="status-card">
+            <div class="status-header">
+                <div class="status-icon active" id="status-icon">
+                    <i class="fa-solid fa-shield-check"></i>
+                </div>
+                <div class="status-info">
+                    <h3 id="status-title">Protection Active</h3>
+                    <p id="status-description">Your browsing is being monitored for threats</p>
+                </div>
+            </div>
+
+            <!-- Toggle Switch -->
+            <div class="toggle-section">
+                <span class="toggle-label">Enable Web Protection</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="protection-toggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <section class="web-stats-section">
+            <h3>Protection Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon blue">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <div class="stat-details">
+                        <div class="stat-number">1,234</div>
+                        <div class="stat-label">Sites Scanned</div>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon red">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <div class="stat-details">
+                        <div class="stat-number">47</div>
+                        <div class="stat-label">Threats Blocked</div>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon orange">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="stat-details">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Warnings Shown</div>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-check-circle"></i>
+                    </div>
+                    <div class="stat-details">
+                        <div class="stat-number">1,175</div>
+                        <div class="stat-label">Safe Sites</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protected Browsers Section -->
+        <section class="browsers-section">
+            <h3>Protected Browsers</h3>
+            <div class="browsers-list">
+                <div class="browser-item active">
+                    <div class="browser-icon chrome">
+                        <i class="fa-brands fa-chrome"></i>
+                    </div>
+                    <div class="browser-info">
+                        <h4>Google Chrome</h4>
+                        <p>Protected</p>
+                    </div>
+                    <div class="browser-status">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                </div>
+
+                <div class="browser-item active">
+                    <div class="browser-icon firefox">
+                        <i class="fa-brands fa-firefox"></i>
+                    </div>
+                    <div class="browser-info">
+                        <h4>Mozilla Firefox</h4>
+                        <p>Protected</p>
+                    </div>
+                    <div class="browser-status">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                </div>
+
+                <div class="browser-item">
+                    <div class="browser-icon edge">
+                        <i class="fa-brands fa-edge"></i>
+                    </div>
+                    <div class="browser-info">
+                        <h4>Microsoft Edge</h4>
+                        <p>Not installed</p>
+                    </div>
+                    <div class="browser-status inactive">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                </div>
+
+                <div class="browser-item">
+                    <div class="browser-icon safari">
+                        <i class="fa-brands fa-safari"></i>
+                    </div>
+                    <div class="browser-info">
+                        <h4>Safari</h4>
+                        <p>Not installed</p>
+                    </div>
+                    <div class="browser-status inactive">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Blocked Sites Section -->
+        <section class="blocked-sites-section">
+            <div class="section-header">
+                <h3>Recently Blocked Sites</h3>
+                <a href="#" class="view-all">View all <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <div class="blocked-list">
+                <div class="blocked-item">
+                    <div class="blocked-icon">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <div class="blocked-info">
+                        <h4>phishing-gtbank-secure.xyz</h4>
+                        <p>Blocked 2 hours ago</p>
+                    </div>
+                    <div class="threat-badge high">
+                        High Risk
+                    </div>
+                </div>
+
+                <div class="blocked-item">
+                    <div class="blocked-icon">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <div class="blocked-info">
+                        <h4>fake-paypal-verify.tk</h4>
+                        <p>Blocked 5 hours ago</p>
+                    </div>
+                    <div class="threat-badge high">
+                        High Risk
+                    </div>
+                </div>
+
+                <div class="blocked-item">
+                    <div class="blocked-icon">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <div class="blocked-info">
+                        <h4>suspicious-investment.xyz</h4>
+                        <p>Blocked 1 day ago</p>
+                    </div>
+                    <div class="threat-badge medium">
+                        Medium Risk
+                    </div>
+                </div>
+
+                <div class="blocked-item">
+                    <div class="blocked-icon">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <div class="blocked-info">
+                        <h4>fake-scholarship-portal.com</h4>
+                        <p>Blocked 2 days ago</p>
+                    </div>
+                    <div class="threat-badge high">
+                        High Risk
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Tips Section -->
+        <section class="tips-section">
+            <h3><i class="fa-solid fa-lightbulb"></i> Browsing Safety Tips</h3>
+            <div class="tips-list">
+                <div class="tip-item">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <p>Always check the URL before entering sensitive information</p>
+                </div>
+                <div class="tip-item">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <p>Look for HTTPS and padlock icon in the address bar</p>
+                </div>
+                <div class="tip-item">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <p>Be cautious of websites with spelling errors or unusual domains</p>
+                </div>
+                <div class="tip-item">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <p>Never download files from untrusted sources</p>
+                </div>
+                <div class="tip-item">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <p>Keep your browser and extensions updated</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works-section">
+            <h3>How Web Protection Works</h3>
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Real-time Scanning</h4>
+                        <p>Every website you visit is automatically scanned for threats</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Threat Detection</h4>
+                        <p>Our algorithms check for phishing, malware, and suspicious patterns</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Instant Blocking</h4>
+                        <p>Dangerous sites are blocked before they can harm your device</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Alert & Report</h4>
+                        <p>You're notified immediately and the threat is logged</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn-secondary">
+                <i class="fa-solid fa-gear"></i> Protection Settings
+            </button>
+            <button class="btn-primary">
+                <i class="fa-solid fa-download"></i> Install Browser Extension
+            </button>
+        </div>
+
+        <!-- Bottom Spacer -->
+        <div class="bottom-spacer"></div>
+    </main>
+
+    {% endblock %}
+
+    <!-- JavaScript -->
+    <script>
+        // Toggle Switch
+        const protectionToggle = document.getElementById('protection-toggle');
+        const statusIcon = document.getElementById('status-icon');
+        const statusTitle = document.getElementById('status-title');
+        const statusDescription = document.getElementById('status-description');
+
+        protectionToggle.addEventListener('change', function() {
+            if (this.checked) {
+                // Enable protection
+                statusIcon.classList.remove('inactive');
+                statusIcon.classList.add('active');
+                statusTitle.textContent = 'Protection Active';
+                statusDescription.textContent = 'Your browsing is being monitored for threats';
+                
+                // Show success message (optional)
+                showNotification('Web Protection Enabled', 'success');
+            } else {
+                // Disable protection
+                statusIcon.classList.remove('active');
+                statusIcon.classList.add('inactive');
+                statusTitle.textContent = 'Protection Inactive';
+                statusDescription.textContent = 'Your browsing is not protected';
+                
+                // Show warning message (optional)
+                showNotification('Web Protection Disabled', 'warning');
+            }
+        });
+
+        // Show notification (optional feature)
+        function showNotification(message, type) {
+            // You can implement a toast notification here
+            // For now, just console log
+            console.log(`${type.toUpperCase()}: ${message}`);
+            
+            // Optional: Use browser notification or custom toast
+            // alert(message);
+        }
+
+        // Handle button clicks
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            alert('Browser extension installation will be available soon!');
+            // TODO: Implement actual extension download
+        });
+
+        document.querySelector('.btn-secondary').addEventListener('click', function() {
+            alert('Protection settings page coming soon!');
+            // TODO: Navigate to settings page
+            // window.location.href = 'protection-settings.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+{% extends 'core/base.html' %}
+{% block content %}{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSense Hub</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+
+<body>
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h1>Cyber<span>Sense</span> HUB</h1>
+            </div>
+            <div class="header-right">
+                <span class="status-badge">
+                    <i class="fa-solid fa-circle-check"></i> Protected
+                </span>
+                <div class="rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard-container">
+        <!-- Statistics Section -->
+        <section class="stats-section">
+            <!-- Small Stats Cards -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-number">2,352</div>
+                    <div class="stat-change positive">
+                        <i class="fa-solid fa-arrow-trend-up"></i> +17%
+                    </div>
+                    <div class="stat-label">Scans Performed</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">7,158</div>
+                    <div class="stat-change positive">
+                        <i class="fa-solid fa-arrow-trend-up"></i> +2%
+                    </div>
+                    <div class="stat-label">Threats Detected</div>
+                </div>
+            </div>
+
+            <!-- Large Stat Card -->
+            <div class="stat-card-large">
+                <div class="large-stat-content">
+                    <div>
+                        <div class="large-stat-number">3.7M</div>
+                        <div class="large-stat-label">THREATS BLOCKED</div>
+                        <div class="stat-change positive">
+                            <i class="fa-solid fa-arrow-trend-up"></i> +45% this month
+                        </div>
+                    </div>
+                    <div class="large-stat-icon">
+                        <i class="fa-solid fa-shield"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions Section -->
+        <section class="quick-actions-section">
+            <h2>Quick Actions</h2>
+            <div class="quick-actions-grid">
+                <button class="action-btn btn-blue" onclick="location.href='../Core/scan.html'">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span class="action-title">SCAN</span>
+                    <span class="action-subtitle">Link/Message</span>
+                </button>
+
+                <button class="action-btn btn-green" onclick="location.href='../Feature/verify-payment.html'">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span class="action-title">VERIFY</span>
+                    <span class="action-subtitle">Payment</span>
+                </button>
+
+                <button class="action-btn btn-purple" onclick="location.href='../Feature/reports.html'">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span class="action-title">VIEW</span>
+                    <span class="action-subtitle">Reports</span>
+                </button>
+
+                <button class="action-btn btn-red" onclick="location.href='../Core/alerts.html'">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span class="action-title">EMERGENCY</span>
+                    <span class="action-subtitle">Alert</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Recent Security Alerts Section -->
+        <section class="alerts-section">
+            <div class="section-header">
+                <h2>Recent Security Alerts</h2>
+                <a href="../Feature/history.html" class="view-all">View all <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <div class="alerts-list">
+                <div class="alert-item">
+                    <div class="alert-left">
+                        <i class="fa-solid fa-shield-halved alert-icon"></i>
+                        <div class="alert-info">
+                            <h4>Phishing Email</h4>
+                            <p class="alert-time">2 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="alert-right">
+                        <span class="badge badge-resolved">Resolved</span>
+                        <span class="badge badge-high">High</span>
+                    </div>
+                </div>
+
+                <div class="alert-item">
+                    <div class="alert-left">
+                        <i class="fa-solid fa-link alert-icon"></i>
+                        <div class="alert-info">
+                            <h4>Suspicious Link</h4>
+                            <p class="alert-time">5 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="alert-right">
+                        <span class="badge badge-resolved">Resolved</span>
+                        <span class="badge badge-medium">Medium</span>
+                    </div>
+                </div>
+
+                <div class="alert-item">
+                    <div class="alert-left">
+                        <i class="fa-solid fa-file-invoice alert-icon"></i>
+                        <div class="alert-info">
+                            <h4>Fake Invoice</h4>
+                            <p class="alert-time">1 day ago</p>
+                        </div>
+                    </div>
+                    <div class="alert-right">
+                        <span class="badge badge-active">Active</span>
+                        <span class="badge badge-high">High</span>
+                    </div>
+                </div>
+
+                <div class="alert-item">
+                    <div class="alert-left">
+                        <i class="fa-solid fa-magnifying-glass alert-icon"></i>
+                        <div class="alert-info">
+                            <h4>Scan Attempts</h4>
+                            <p class="alert-time">2 days ago</p>
+                        </div>
+                    </div>
+                    <div class="alert-right">
+                        <span class="badge badge-monitored">Monitored</span>
+                        <span class="badge badge-low">Low</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Tip Section -->
+        <section class="security-tip-section">
+            <div class="tip-card">
+                <div class="tip-header">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <h3>Today's Security Tip</h3>
+                </div>
+                <p class="tip-content">
+                    Beware of urgent payment requests. Scam emails often create a sense of urgency to trick you into acting quickly. Always verify the sender's identity before taking any action.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bottom spacing for navigation -->
+        <div class="bottom-spacer"></div>
+    </main>
+
+  {% endblock %}

@@ -1,0 +1,432 @@
+{% extends 'core/base.html' %}
+{% block content %}{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSense Hub - Scan</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Scan CSS -->
+    <link rel="stylesheet" href="{% static 'css/scan.css' %}">
+</head> 
+<body>
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="header-content">
+            <a href="{% url 'dashboard' %}" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div class="logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h1>Cyber<span>Sense</span> HUB</h1>
+            </div>
+            <div class="header-spacer"></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="scan-container">
+        <!-- Page Title -->
+        <div class="page-title">
+            <h2>Scan for Threats</h2>
+            <p>Analyze suspicious messages, links, or images</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="text">
+                <i class="fa-solid fa-message"></i>
+                <span>Text</span>
+            </button>
+            <button class="tab-btn" data-tab="link">
+                <i class="fa-solid fa-link"></i>
+                <span>Link</span>
+            </button>
+            <button class="tab-btn" data-tab="image">
+                <i class="fa-solid fa-image"></i>
+                <span>Image</span>
+            </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Text Tab -->
+            <div class="tab-pane active" id="text-tab">
+                <div class="input-section">
+                    <label for="text-input">Paste Suspicious Message</label>
+                    <textarea 
+                        id="text-input" 
+                        placeholder="Paste the suspicious email, SMS, or WhatsApp message here...
+                        
+Example:
+'Congratulations! You've won N50,000 scholarship. Send your BVN to claim: bit.ly/xyz123'"
+                        rows="8"
+                    ></textarea>
+                    <div class="input-help">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>We analyze the message for scam patterns, urgency tactics, and phishing indicators</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Link Tab -->
+            <div class="tab-pane" id="link-tab">
+                <div class="input-section">
+                    <label for="link-input">Paste Suspicious Link</label>
+                    <input 
+                        type="url" 
+                        id="link-input" 
+                        placeholder="https://example.com/suspicious-link"
+                        class="link-input"
+                    />
+                    <div class="input-help">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>We check for phishing URLs, domain spoofing, and malicious patterns</span>
+                    </div>
+                    <div class="link-examples">
+                        <p><strong>Examples of suspicious links:</strong></p>
+                        <ul>
+                            <li>Shortened URLs (bit.ly, tinyurl)</li>
+                            <li>Misspelled domains (paypa1.com)</li>
+                            <li>Unusual extensions (.xyz, .tk)</li>
+                            <li>IP addresses instead of domain names</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Tab -->
+            <div class="tab-pane" id="image-tab">
+                <div class="input-section">
+                    <label>Upload Screenshot</label>
+                    <div class="upload-area" id="upload-area">
+                        <input type="file" id="file-input" accept="image/*" hidden>
+                        <div class="upload-content">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p><strong>Click to upload</strong> or drag and drop</p>
+                            <p class="upload-hint">PNG, JPG, JPEG (Max 5MB)</p>
+                        </div>
+                    </div>
+                    <div class="image-preview" id="image-preview" style="display: none;">
+                        <img id="preview-img" src="" alt="Preview">
+                        <button class="remove-image" id="remove-image">
+                            <i class="fa-solid fa-xmark"></i> Remove
+                        </button>
+                    </div>
+                    <div class="input-help">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>Upload bank alerts, payment confirmations, or any suspicious images</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scan Button -->
+        <button class="scan-btn" id="scan-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>SCAN NOW</span>
+        </button>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="loading-state" style="display: none;">
+            <div class="spinner"></div>
+            <p>Analyzing for threats...</p>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="results-section" style="display: none;">
+            <!-- Risk Level Card -->
+            <div class="result-card" id="result-card">
+                <div class="risk-header">
+                    <div class="risk-icon" id="risk-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <div class="risk-badge" id="risk-badge">HIGH RISK</div>
+                        <div class="risk-label">Threat Detected</div>
+                    </div>
+                </div>
+
+                <!-- Risk Score -->
+                <div class="risk-score-section">
+                    <div class="score-label">Risk Score</div>
+                    <div class="score-bar">
+                        <div class="score-fill" id="score-fill" style="width: 85%"></div>
+                    </div>
+                    <div class="score-value" id="score-value">85/100</div>
+                </div>
+
+                <!-- Detected Patterns -->
+                <div class="patterns-section">
+                    <h3><i class="fa-solid fa-triangle-exclamation"></i> Detected Patterns</h3>
+                    <ul class="patterns-list" id="patterns-list">
+                        <li>
+                            <i class="fa-solid fa-circle-xmark"></i>
+                            <span><strong>Sensitive Data Request:</strong> Asks for BVN/PIN</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle-xmark"></i>
+                            <span><strong>Urgency Tactics:</strong> Creates false urgency</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle-xmark"></i>
+                            <span><strong>Suspicious Link:</strong> Uses URL shortener</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="recommendations-section">
+                    <h3><i class="fa-solid fa-lightbulb"></i> Recommendations</h3>
+                    <ul class="recommendations-list" id="recommendations-list">
+                        <li>
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span>DO NOT respond to this message</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span>DO NOT click any links in the message</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span>DO NOT share personal or financial information</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span>Report this to your bank or relevant authority</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span>Block the sender immediately</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Safety Tip -->
+                <div class="safety-tip">
+                    <i class="fa-solid fa-shield-check"></i>
+                    <p id="safety-tip-text">
+                        <strong>Safety Tip:</strong> Legitimate banks never ask for your BVN, PIN, or password via text message or email.
+                    </p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="result-actions">
+                    <button class="btn-secondary" id="scan-again-btn">
+                        <i class="fa-solid fa-rotate"></i> Scan Again
+                    </button>
+                    <button class="btn-primary" id="save-btn">
+                        <i class="fa-solid fa-bookmark"></i> Save to History
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State (shown when no results) -->
+        <div class="empty-state" id="empty-state">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h3>No Scan Yet</h3>
+            <p>Enter a message, link, or upload an image to start scanning</p>
+            <div class="examples">
+                <p><strong>Common scams we detect:</strong></p>
+                <ul>
+                    <li>Fake scholarship alerts</li>
+                    <li>Phishing emails</li>
+                    <li>Fake bank transfer alerts</li>
+                    <li>Job offer scams</li>
+                    <li>Investment fraud</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Spacer -->
+        <div class="bottom-spacer"></div>
+    </main>
+
+    {%endblock%}
+
+    <!-- JavaScript -->
+    <script>
+        // Tab Switching
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all tabs
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanes.forEach(pane => pane.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+
+        // Image Upload
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+        const previewImg = document.getElementById('preview-img');
+        const removeImageBtn = document.getElementById('remove-image');
+
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                displayImage(file);
+            }
+        });
+
+        // Drag and Drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                fileInput.files = e.dataTransfer.files;
+                displayImage(file);
+            }
+        });
+
+        function displayImage(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                uploadArea.style.display = 'none';
+                imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        removeImageBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.value = '';
+            uploadArea.style.display = 'block';
+            imagePreview.style.display = 'none';
+        });
+
+        // Scan Button
+        const scanBtn = document.getElementById('scan-btn');
+        const loadingState = document.getElementById('loading-state');
+        const resultsSection = document.getElementById('results-section');
+        const emptyState = document.getElementById('empty-state');
+
+        scanBtn.addEventListener('click', () => {
+            // Get current active tab
+            const activeTab = document.querySelector('.tab-btn.active').getAttribute('data-tab');
+            
+            let inputValue = '';
+            if (activeTab === 'text') {
+                inputValue = document.getElementById('text-input').value.trim();
+            } else if (activeTab === 'link') {
+                inputValue = document.getElementById('link-input').value.trim();
+            } else if (activeTab === 'image') {
+                inputValue = fileInput.files.length > 0 ? 'image-uploaded' : '';
+            }
+            
+            if (!inputValue) {
+                alert('Please enter some content to scan!');
+                return;
+            }
+            
+            // Hide empty state and results
+            emptyState.style.display = 'none';
+            resultsSection.style.display = 'none';
+            
+            // Show loading
+            loadingState.style.display = 'block';
+            
+            // Simulate scanning (replace with actual API call)
+            setTimeout(() => {
+                displayResults();
+            }, 2000);
+        });
+
+        function displayResults() {
+            // Hide loading
+            loadingState.style.display = 'none';
+            
+            // Show results
+            resultsSection.style.display = 'block';
+            
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Sample data (replace with actual scan results from backend)
+            const riskLevel = 'high'; // high, medium, low
+            const riskScore = 85;
+            
+            updateResultsUI(riskLevel, riskScore);
+        }
+
+        function updateResultsUI(riskLevel, riskScore) {
+            const riskIcon = document.getElementById('risk-icon');
+            const riskBadge = document.getElementById('risk-badge');
+            const scoreFill = document.getElementById('score-fill');
+            const scoreValue = document.getElementById('score-value');
+            
+            // Update risk icon
+            riskIcon.className = 'risk-icon ' + riskLevel;
+            
+            // Update risk badge
+            riskBadge.className = 'risk-badge ' + riskLevel;
+            if (riskLevel === 'high') {
+                riskBadge.textContent = 'HIGH RISK';
+            } else if (riskLevel === 'medium') {
+                riskBadge.textContent = 'MEDIUM RISK';
+            } else {
+                riskBadge.textContent = 'LOW RISK';
+            }
+            
+            // Update score bar
+            scoreFill.className = 'score-fill ' + riskLevel;
+            scoreFill.style.width = riskScore + '%';
+            scoreValue.textContent = riskScore + '/100';
+        }
+
+        // Scan Again Button
+        const scanAgainBtn = document.getElementById('scan-again-btn');
+        scanAgainBtn.addEventListener('click', () => {
+            // Clear inputs
+            document.getElementById('text-input').value = '';
+            document.getElementById('link-input').value = '';
+            if (fileInput.files.length > 0) {
+                removeImageBtn.click();
+            }
+            
+            // Hide results
+            resultsSection.style.display = 'none';
+            emptyState.style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Save to History Button
+        const saveBtn = document.getElementById('save-btn');
+        saveBtn.addEventListener('click', () => {
+            // TODO: Implement save to history functionality
+            alert('Scan saved to history!');
+        });
+    </script>
+</body>
+</html>

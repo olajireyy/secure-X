@@ -1,0 +1,285 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSense Hub - Menu</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Menu CSS -->
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+</head>
+
+<!-- Top Header -->
+<header class="top-header">
+    <div class="header-content">
+        <div class="logo">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h1>Cyber<span>Sense</span> HUB</h1>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="menu-container">
+    <!-- User Profile Section -->
+    <div class="profile-section">
+        <div class="profile-card">
+            <div class="profile-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="profile-info">
+                <h2>{{ user.full_name|default:"User" }}</h2>
+                <p>{{ user.email }}</p>
+                <span class="user-badge">{{ user.get_user_type_display|default:"Student" }}</span>
+            </div>
+            <button class="edit-profile-btn">
+                <i class="fa-solid fa-pen"></i>
+            </button>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="stat-box">
+                <div class="stat-value">24</div>
+                <div class="stat-label">Scans</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Threats</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">16</div>
+                <div class="stat-label">Blocked</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Menu Options -->
+    <div class="menu-section">
+        <h3 class="section-title">Main Features</h3>
+        <div class="menu-list">
+            <a href="{% url 'scan' %}" class="menu-item">
+                <div class="menu-icon blue">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Scan for Threats</h4>
+                    <p>Analyze messages, links, and images</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="menu-icon green">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Verify Payment</h4>
+                    <p>Check bank alert authenticity</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="menu-icon purple">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Scan History</h4>
+                    <p>View past scans and results</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="menu-icon orange">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Campus Reports</h4>
+                    <p>Submit and view incident reports</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Security & Tools -->
+    <div class="menu-section">
+        <h3 class="section-title">Security & Tools</h3>
+        <div class="menu-list">
+            <a href="{% url 'web-protection' %}" class="menu-item">
+                <div class="menu-icon blue">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Web Protection</h4>
+                    <p>Browse safely with real-time detection</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="menu-icon yellow">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Security Education</h4>
+                    <p>Learn about common scams</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="{% url 'alerts' %}" class="menu-item">
+                <div class="menu-icon red">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Security Alerts</h4>
+                    <p>View all threat notifications</p>
+                    <span class="notification-badge">3</span>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Account & Settings -->
+    <div class="menu-section">
+        <h3 class="section-title">Account & Settings</h3>
+        <div class="menu-list">
+            <a href="#" class="menu-item">
+                <div class="menu-icon gray">
+                    <i class="fa-solid fa-gear"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Settings</h4>
+                    <p>Manage your account preferences</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="{% url 'menu' %}" class="menu-item">
+                <div class="menu-icon gray">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Profile</h4>
+                    <p>Edit your personal information</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="menu-icon gray">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Notifications</h4>
+                    <p>Configure alert preferences</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Help & Support -->
+    <div class="menu-section">
+        <h3 class="section-title">Help & Support</h3>
+        <div class="menu-list">
+            <a href="#" class="menu-item">
+                <div class="menu-icon gray">
+                    <i class="fa-solid fa-circle-question"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Help Center</h4>
+                    <p>Get help and support</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="menu-icon gray">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>About</h4>
+                    <p>Learn more about CyberSense Hub</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="#" class="menu-item" id="share-app">
+                <div class="menu-icon gray">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Share App</h4>
+                    <p>Tell others about CyberSense Hub</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+            <a href="#" class="menu-item" id="rate-app">
+                <div class="menu-icon gray">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="menu-content">
+                    <h4>Rate Us</h4>
+                    <p>Share your experience</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- App Info -->
+    <div class="app-info">
+        <p class="app-version">Version 1.0.0</p>
+        <p class="copyright">&copy; 2026 CyberSense Hub. All rights reserved.</p>
+    </div>
+
+    <!-- Logout Button -->
+    <a href="{% url 'logout' %}" class="logout-btn" id="logout-btn"
+        onclick="return confirm('Are you sure you want to logout?')">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+    </a>
+
+    <!-- Bottom Spacer -->
+    <div class="bottom-spacer"></div>
+</main>
+
+<!-- JavaScript -->
+<script>
+    // Share App
+    const shareAppBtn = document.getElementById('share-app');
+    shareAppBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (navigator.share) {
+            navigator.share({
+                title: 'CyberSense Hub',
+                text: 'Protect yourself from online scams with CyberSense Hub!',
+                url: window.location.origin
+            }).catch(() => { });
+        } else {
+            navigator.clipboard.writeText(window.location.origin).then(() => {
+                alert('Link copied to clipboard!');
+            });
+        }
+    });
+
+    // Rate App
+    const rateAppBtn = document.getElementById('rate-app');
+    rateAppBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        alert('Thanks for your interest! Rating coming soon.');
+    });
+</script>
+
+{% endblock %}
